@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroWell AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar glass-panel">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div>
+            <strong>NeuroWell AI</strong>
+            <span>Wellness companion</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <button class="nav-item active" data-tab="home">Home</button>
+          <button class="nav-item" data-tab="mental">Mental Health</button>
+          <button class="nav-item" data-tab="physical">Physical Health</button>
+          <button class="nav-item" data-tab="sleep">Sleep</button>
+          <button class="nav-item" data-tab="insights">AI Insights</button>
+          <button class="nav-item" data-tab="reports">Reports & History</button>
+          <button class="nav-item emergency-nav" data-tab="emergency">Emergency Help</button>
+          <button class="nav-item" data-tab="settings">Settings</button>
+        </nav>
+
+        <div class="support-card">
+          <span class="status-dot green"></span>
+          <div>
+            <strong>Support team online</strong>
+            <p>Human outreach available 24/7 before emergency escalation.</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar glass-panel">
+          <div>
+            <p class="eyebrow">Today's wellness space</p>
+            <h1 id="page-title">Home</h1>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" id="mode-toggle" aria-label="Toggle dark mode">Dark</button>
+            <button class="profile-pill">
+              <span class="pulse-avatar"></span>
+              Aanya
+            </button>
+          </div>
+        </header>
+
+        <section class="tab-panel active" id="home">
+          <div class="home-grid">
+            <article class="hero-checkin glass-panel">
+              <div>
+                <p class="eyebrow">Smart daily check-in</p>
+                <h2>How are you feeling today?</h2>
+                <p class="muted">A gentle two-hour mood check helps the AI notice changes without overwhelming you.</p>
+              </div>
+              <div class="mood-row" role="group" aria-label="Mood selection">
+                <button data-mood="Calm">Calm</button>
+                <button data-mood="Okay">Okay</button>
+                <button data-mood="Tired">Tired</button>
+                <button data-mood="Anxious">Anxious</button>
+              </div>
+              <textarea id="mood-note" placeholder="Optional note for your AI companion"></textarea>
+              <div class="checkin-actions">
+                <button class="primary-btn" id="save-checkin">Save check-in</button>
+                <button class="ghost-btn">Snooze</button>
+                <button class="ghost-btn">Skip</button>
+              </div>
+            </article>
+
+            <article class="score-card glass-panel" data-score-card="mental">
+              <span class="status-dot green"></span>
+              <p>Mental Health Score</p>
+              <strong id="mental-score">78</strong>
+              <small>Green - stable emotional condition</small>
+            </article>
+
+            <article class="score-card glass-panel" data-score-card="physical">
+              <span class="status-dot green"></span>
+              <p>Physical Health Score</p>
+              <strong id="physical-score">82</strong>
+              <small>Green - healthy routines</small>
+            </article>
+
+            <article class="metric-card glass-panel">
+              <span>Heart Rate</span>
+              <strong>72 bpm</strong>
+              <p class="muted">Resting range</p>
+            </article>
+
+            <article class="metric-card glass-panel">
+              <span>Body Weight</span>
+              <strong>68.4 kg</strong>
+              <p class="muted">Steady this week</p>
+            </article>
+
+            <article class="metric-card glass-panel">
+              <span>Current Mood</span>
+              <strong id="current-mood">Calm</strong>
+              <p class="muted">Logged 18 min ago</p>
+            </article>
+
+            <article class="metric-card glass-panel">
+              <span>Medication</span>
+              <strong>Vitamin D</strong>
+              <p class="muted">8:30 PM reminder</p>
+            </article>
+
+            <article class="wide-card glass-panel">
+              <div>
+                <p class="eyebrow">Quick wellness summary</p>
+                <h3>Balanced day with a mild focus dip</h3>
+                <p class="muted">Your sleep and hydration look steady. A short breathing session may help restore afternoon focus.</p>
+              </div>
+              <div class="traffic-list">
+                <span><i class="status-dot green"></i> Mood stable</span>
+                <span><i class="status-dot yellow"></i> Hydration low</span>
+                <span><i class="status-dot green"></i> Activity met</span>
+              </div>
+            </article>
+
+            <article class="wide-card glass-panel ai-card">
+              <div>
+                <p class="eyebrow">AI recommendation</p>
+                <h3>Try a 4-minute breathing reset</h3>
+                <p class="muted">Natural support first: slow breathing, water, and a screen break before any clinical intervention.</p>
+              </div>
+              <button class="primary-btn" data-tab-shortcut="mental">Start breathing</button>
+            </article>
+
+            <article class="critical-banner glass-panel hidden" id="emergency-alert">
+              <span class="status-dot red"></span>
+              <div>
+                <strong>Critical health status detected</strong>
+                <p>Emergency monitoring mode is active. NeuroWell AI will guide you calmly and notify the support team first.</p>
+              </div>
+              <button class="danger-btn" data-tab-shortcut="emergency">Open support</button>
+            </article>
+
+            <div class="quick-actions glass-panel">
+              <button data-tab-shortcut="home">Log Mood</button>
+              <button data-tab-shortcut="mental">Start Meditation</button>
+              <button data-tab-shortcut="emergency">Emergency Help</button>
+              <button data-tab-shortcut="sleep">View Sleep</button>
+              <button id="open-chat">Talk to AI</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="mental">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Mental wellness only</p>
+              <h2>Emotional balance</h2>
+            </div>
+            <span class="traffic-badge green">Green</span>
+          </div>
+          <div class="content-grid two-col">
+            <article class="glass-panel card">
+              <h3>Monthly Mental Health Score</h3>
+              <div class="mini-chart" data-chart="78,74,80,76,83,81,79,84,82,78,80,85"></div>
+              <p class="muted">Gentle improvement with two short stress spikes.</p>
+            </article>
+            <article class="glass-panel card breathing-card">
+              <h3>Breathing visualization</h3>
+              <div class="breath-orb" aria-hidden="true"></div>
+              <strong>Inhale - hold - exhale</strong>
+              <p class="muted">A calming loop for anxiety and focus resets.</p>
+            </article>
+            <article class="glass-panel card">
+              <h3>Voice emotion analysis</h3>
+              <div class="voice-grid">
+                <span>Calm tone <b>82%</b></span>
+                <span>Speaking pace <b>Stable</b></span>
+                <span>Pauses <b>Low</b></span>
+                <span>Fatigue signal <b>Mild</b></span>
+              </div>
+              <p class="muted">AI reviews tone, pace, pauses, stress, sadness, confidence, and emotional energy.</p>
+            </article>
+            <article class="glass-panel card">
+              <h3>Focus and burnout</h3>
+              <div class="heatmap" aria-label="Emotional heatmap">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <p class="muted">Burnout indicators are low. Focus dipped after lunch.</p>
+            </article>
+          </div>
+          <details class="glass-panel expandable">
+            <summary>View deeper mental analytics</summary>
+            <div class="details-grid">
+              <span>Anxiety detection: low</span>
+              <span>Mood timeline: stable</span>
+              <span>Meditation: 12 min/week</span>
+              <span>AI support: active</span>
+            </div>
+          </details>
+        </section>
+
+        <section class="tab-panel" id="physical">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Physical wellness only</p>
+              <h2>Movement and body signals</h2>
+            </div>
+            <span class="traffic-badge green">Green</span>
+          </div>
+          <div class="content-grid two-col">
+            <article class="glass-panel card">
+              <h3>Monthly Physical Health Score</h3>
+              <div class="mini-chart" data-chart="72,75,74,79,81,80,82,84,82,83,85,86"></div>
+            </article>
+            <article class="glass-panel card metric-stack">
+              <h3>Key metrics first</h3>
+              <span>Steps <b>8,420</b></span>
+              <span>Hydration <b>1.7 L</b></span>
+              <span>Active time <b>42 min</b></span>
+              <span>Calories burned <b>510</b></span>
+            </article>
+            <article class="glass-panel card">
+              <h3>Heart rate trend</h3>
+              <div class="mini-chart blue" data-chart="68,72,71,76,74,73,72,70,69,72,71,70"></div>
+            </article>
+            <article class="glass-panel card">
+              <h3>AI fitness advice</h3>
+              <p class="muted">Keep your evening walk and add light mobility. The AI recommends hydration before increasing intensity.</p>
+              <button class="ghost-btn">Expand plan</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="sleep">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Sleep only</p>
+              <h2>Rest quality</h2>
+            </div>
+            <span class="traffic-badge yellow">Needs Attention</span>
+          </div>
+          <div class="content-grid two-col">
+            <article class="glass-panel card sleep-feature">
+              <h3>Sleep quality score</h3>
+              <strong>74</strong>
+              <p>7h 18m total - 5h 42m uninterrupted</p>
+            </article>
+            <article class="glass-panel card">
+              <h3>Sleep timeline</h3>
+              <div class="sleep-bars">
+                <i style="height:44%"></i><i style="height:68%"></i><i style="height:82%"></i><i style="height:52%"></i><i style="height:74%"></i><i style="height:90%"></i><i style="height:64%"></i>
+              </div>
+              <p class="muted">Disturbance detected around 3:12 AM.</p>
+            </article>
+            <article class="glass-panel card">
+              <h3>REM and deep sleep</h3>
+              <div class="metric-stack">
+                <span>REM <b>1h 34m</b></span>
+                <span>Deep sleep <b>1h 12m</b></span>
+                <span>Light sleep <b>4h 32m</b></span>
+              </div>
+            </article>
+            <article class="glass-panel card">
+              <h3>AI sleep advice</h3>
+              <p class="muted">Dim screens 45 minutes earlier, hydrate before 8 PM, and keep tomorrow's caffeine before noon.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="insights">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Smart AI analysis</p>
+              <h2>Preventive guidance</h2>
+            </div>
+            <span class="traffic-badge green">Low Risk</span>
+          </div>
+            <div class="content-grid two-col">
+            <article class="glass-panel card risk-card">
+              <h3>Future risk prediction</h3>
+              <span><b>18%</b> stress-related fatigue</span>
+              <span><b>12%</b> sleep disruption pattern</span>
+              <span><b>9%</b> low activity week</span>
+            </article>
+            <article class="glass-panel card">
+              <h3>Why this matters</h3>
+              <p class="muted">The AI sees screen-heavy evenings, hydration dips, and shorter deep-sleep cycles. Natural prevention comes first.</p>
+            </article>
+            <article class="glass-panel card">
+              <h3>Natural recovery plan</h3>
+              <div class="pill-list">
+                <span>Better sleep routine</span><span>Meditation</span><span>Hydration</span><span>Exercise</span><span>Reduced screen time</span><span>Counseling if needed</span>
+              </div>
+            </article>
+            <article class="glass-panel card">
+              <h3>Clinical escalation</h3>
+              <p class="muted">If symptoms become serious or persistent, NeuroWell AI recommends professional consultation and assigned care-team review.</p>
+            </article>
+            <article class="glass-panel card api-command">
+              <h3>Connected AI services</h3>
+              <p class="muted">OpenAI powers supportive conversation and summaries. Hume AI and AssemblyAI support voice-based emotion analysis through secure backend routes.</p>
+              <button class="ghost-btn" id="run-ai-sample">Preview AI orchestration</button>
+            </article>
+            <article class="glass-panel card api-command">
+              <h3>Health ecosystem APIs</h3>
+              <p class="muted">Google Fit, Fitbit, HealthKit, Human API, Infermedica, Firebase, Twilio, and Maps are represented in the integration layer for production wiring.</p>
+              <button class="ghost-btn" data-tab-shortcut="settings">View API stack</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="reports">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">History without overload</p>
+              <h2>Reports and progress</h2>
+            </div>
+            <button class="primary-btn">Export report</button>
+          </div>
+          <div class="glass-panel timeline">
+            <button class="filter active">Weekly</button>
+            <button class="filter">Monthly</button>
+            <button class="filter">Mental</button>
+            <button class="filter">Physical</button>
+            <button class="filter">Sleep</button>
+            <div class="timeline-item"><span class="status-dot green"></span><div><strong>Today</strong><p>Stable mood, activity goal met, hydration needs attention.</p></div></div>
+            <div class="timeline-item"><span class="status-dot yellow"></span><div><strong>Yesterday</strong><p>Sleep interruption increased stress level for 2 hours.</p></div></div>
+            <div class="timeline-item"><span class="status-dot green"></span><div><strong>This week</strong><p>Mental score improved 6 points after consistent breathing sessions.</p></div></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="emergency">
+          <div class="emergency-page glass-panel">
+            <span class="status-dot red large"></span>
+            <p class="eyebrow">Emergency support</p>
+            <h2>Calm, human-centered help</h2>
+            <p class="muted">If scores drop below 30, NeuroWell AI activates critical monitoring, guides grounding exercises, notifies internal wellness staff and assigned professionals, then escalates to emergency contacts only if severe indicators appear.</p>
+            <button class="sos-button" id="sos-button">SOS</button>
+            <div class="emergency-stages">
+              <article><strong>Stage 1 - AI Critical Alert</strong><p>Breathing, grounding, and calm guidance begin immediately.</p></article>
+              <article><strong>Stage 2 - Human Support Outreach</strong><p>Wellness support contacts the user first and assesses seriousness.</p></article>
+              <article><strong>Stage 3 - Emergency Contact Alert</strong><p>Contacts are notified if the user is unresponsive or severe danger is detected.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="settings">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Personal controls</p>
+              <h2>Settings</h2>
+            </div>
+          </div>
+          <div class="content-grid two-col">
+            <article class="glass-panel card settings-list">
+              <h3>Preferences</h3>
+              <label>Language <select><option>English</option><option>Hindi</option><option>Spanish</option></select></label>
+              <label><span>Calm notifications</span><input type="checkbox" checked /></label>
+              <label><span>Wearable integration</span><input type="checkbox" checked /></label>
+              <label><span>AI personalization</span><input type="checkbox" checked /></label>
+            </article>
+            <article class="glass-panel card settings-list">
+              <h3>Privacy and safety</h3>
+              <label><span>Encrypted cloud storage</span><input type="checkbox" checked /></label>
+              <label><span>Healthcare professional sharing</span><input type="checkbox" /></label>
+              <label><span>Emergency contact alerts</span><input type="checkbox" checked /></label>
+              <button class="ghost-btn">Manage emergency contacts</button>
+            </article>
+            <article class="glass-panel card api-stack-card">
+              <h3>MVP API stack</h3>
+              <div class="api-grid" id="api-grid"></div>
+            </article>
+            <article class="glass-panel card api-stack-card">
+              <h3>Security architecture</h3>
+              <p class="muted">The frontend never stores vendor secrets. It calls encrypted backend routes, validates user consent, then logs sensitive events to Firebase or Supabase with audit metadata.</p>
+              <div class="pill-list">
+                <span>Auth required</span><span>Consent gates</span><span>Encrypted records</span><span>Audit trail</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="chatbot glass-panel" id="chatbot">
+      <button class="chat-toggle" id="chat-toggle" aria-label="Open AI chatbot">AI</button>
+      <div class="chat-window" aria-live="polite">
+        <div class="chat-header">
+          <strong>NeuroWell AI</strong>
+          <button id="close-chat" aria-label="Close chatbot">x</button>
+        </div>
+        <div class="chat-body">
+          <p class="bot">I'm here with you. Want a breathing reset, sleep advice, or medication reminder?</p>
+        </div>
+        <form class="chat-form">
+          <input placeholder="Ask for calm support..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="api-integrations.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
