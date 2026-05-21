@@ -59,3 +59,11 @@ This project includes `vercel.json` and a `build` script. In Vercel:
 - Add environment variables from `.env.example` only when backend/API routes are implemented.
 
 The current frontend is static and can deploy immediately. Production API calls should be moved into Vercel serverless functions or a separate Node/Express service before using real healthcare or emergency data.
+
+## Deployment Health Check
+
+After deploying to Vercel, verify the serverless runtime:
+
+```text
+/api/health
+```
