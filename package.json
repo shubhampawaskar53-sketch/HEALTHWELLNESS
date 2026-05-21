@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.8",
+    "assemblyai": "^4.33.3",
     "express": "^5.1.0",
     "firebase": "^11.8.1",
     "openai": "^4.103.0",
