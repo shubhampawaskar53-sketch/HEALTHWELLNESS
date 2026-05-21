@@ -1,5 +1,7 @@
-const NeuroWellIntegrations = {
-  apiStack: [
+(() => {
+  "use strict";
+
+  const API_STACK = Object.freeze([
     {
       id: "openai",
       name: "OpenAI API",
@@ -98,67 +100,76 @@ const NeuroWellIntegrations = {
       purpose: "Nearby hospitals, live location, emergency centers, and assistance routing.",
       mvp: false,
     },
-  ],
+  ]);
 
-  async request(route, payload = {}) {
+  const safeClone = (value) => JSON.parse(JSON.stringify(value));
+
+  async function request(route, payload = {}) {
     return {
       route,
-      payload,
+      payload: safeClone(payload),
       status: "mocked",
       message: "Production builds should send this through a secure Node/Express backend route.",
+      timestamp: new Date().toISOString(),
     };
-  },
+  }
 
-  async generateWellnessInsight(checkin) {
-    return this.request("/api/ai/chat", {
+  async function generateWellnessInsight(checkin) {
+    return request("/api/ai/chat", {
       provider: "openai",
       task: "supportive_wellness_recommendation",
       checkin,
       guardrails: ["natural_recovery_first", "crisis_support_if_needed", "no_diagnosis"],
     });
-  },
+  }
 
-  async analyzeVoice(sampleId) {
-    const transcription = await this.request("/api/voice/transcribe", {
+  async function analyzeVoice(sampleId) {
+    const transcription = await request("/api/voice/transcribe", {
       provider: "assemblyai",
       sampleId,
     });
-    const emotion = await this.request("/api/voice/emotion", {
+    const emotion = await request("/api/voice/emotion", {
       provider: "hume",
       sampleId,
       signals: ["stress", "sadness", "anxiety", "fatigue", "emotional_energy"],
     });
+
     return { transcription, emotion };
-  },
+  }
 
-  async syncWearables(userId) {
-    return Promise.all([
-      this.request("/api/wearables/google-fit", { userId }),
-      this.request("/api/wearables/fitbit", { userId }),
-      this.request("/api/wearables/healthkit", { userId }),
-      this.request("/api/wearables/human-api", { userId }),
-    ]);
-  },
+  async function syncWearables(userId) {
+    const providers = ["google-fit", "fitbit", "healthkit", "human-api"];
+    return Promise.all(
+      providers.map((provider) => request(`/api/wearables/${provider}`, { provider, userId })),
+    );
+  }
 
-  async runEmergencyProtocol(event) {
-    const stageOne = await this.request("/api/emergency/ai-critical-alert", {
+  async function runEmergencyProtocol(event) {
+    const stageOne = await request("/api/emergency/ai-critical-alert", {
       provider: "openai",
       event,
       guidance: ["breathing", "grounding", "seek_support"],
     });
-    const stageTwo = await this.request("/api/emergency/support-team", {
+    const stageTwo = await request("/api/emergency/support-team", {
       notify: ["internal_wellness_staff", "assigned_healthcare_professionals"],
       event,
     });
     const stageThree = event.severe
-      ? await this.request("/api/emergency/twilio", {
+      ? await request("/api/emergency/twilio", {
           notify: "emergency_contacts",
           include: ["last_known_wellness_condition", "urgent_assistance_recommendation"],
         })
       : null;
 
     return { stageOne, stageTwo, stageThree };
-  },
-};
+  }
 
-window.NeuroWellIntegrations = NeuroWellIntegrations;
+  window.NeuroWellIntegrations = Object.freeze({
+    apiStack: API_STACK,
+    request,
+    generateWellnessInsight,
+    analyzeVoice,
+    syncWearables,
+    runEmergencyProtocol,
+  });
+})();
