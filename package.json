@@ -10,7 +10,6 @@
     "api": "node server.example.js"
   },
   "dependencies": {
-    "@assemblyai/sdk": "^4.13.3",
     "@supabase/supabase-js": "^2.49.8",
     "express": "^5.1.0",
     "firebase": "^11.8.1",
